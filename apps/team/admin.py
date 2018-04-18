@@ -5,18 +5,19 @@ from apps.team.models import Team, Player, Coach, Game
 
 @admin.register(Team)
 class TeamAdmin(admin.ModelAdmin):
-	# list_display = ('name', 'release_date')
-	# list_filter = ('id', 'name')
-	# search_fields = ['name']
+	list_display = ('name', 'image_tag')
+
 
 @admin.register(Player)
 class PlayerAdmin(admin.ModelAdmin):
-	# list_display = ('id', 'name', 'duration', 'album')
+	pass
+	
 
 @admin.register(Coach)
 class CoachAdmin(admin.ModelAdmin):
-	# list_display = ('id', 'name', 'duration', 'album')
+	pass
+	
 
 @admin.register(Game)
 class GameAdmin(admin.ModelAdmin):
-	# list_display = ('id', 'name', 'duration', 'album')
+	pass
