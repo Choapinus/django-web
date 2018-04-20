@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils.safestring import mark_safe
+from django.utils.html import format_html
 from . import constants
 
 # Create your models here.
@@ -13,8 +13,8 @@ class Team(models.Model):
 	def __str__(self):
 		return self.name
 
-	def image_tag(self):
-		return mark_safe(self.logo.url)
+	def image(self):
+		return format_html('<img src="{}" />', self.logo)
 
 class Player(models.Model):
 	name = models.CharField(max_length=200)
@@ -31,6 +31,9 @@ class Player(models.Model):
 
 	def __str__(self):
 		return self.name
+
+	def image(self):
+		return format_html('<img src="{}" />', self.photo)
 
 class Coach(models.Model):
 	name = models.CharField(max_length=100)

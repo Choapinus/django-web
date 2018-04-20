@@ -5,12 +5,15 @@ from apps.team.models import Team, Player, Coach, Game
 
 @admin.register(Team)
 class TeamAdmin(admin.ModelAdmin):
-	list_display = ('name', 'image_tag')
+	list_display = ('name', 'image')
+	search_fields = ('name', )
 
 
 @admin.register(Player)
 class PlayerAdmin(admin.ModelAdmin):
-	pass
+	list_display = ('rut', 'name', 'nickname')
+	search_fields = ['rut', 'name', 'nickname']
+	list_filter = ('team', 'birthday')
 	
 
 @admin.register(Coach)
