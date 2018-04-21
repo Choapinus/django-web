@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.html import mark_safe
 from apps.team.models import Team, Player, Coach, Game
 
 # Register your models here.
@@ -7,6 +8,14 @@ from apps.team.models import Team, Player, Coach, Game
 class TeamAdmin(admin.ModelAdmin):
 	list_display = ('name', 'image')
 	search_fields = ('name', )
+	readonly_fields = ['image', ]
+
+	def image(self, obj):
+		print(obj.logo.url)
+		return mark_safe('<img src="{url}" />'.format(
+			url = obj.logo.url
+		)
+	)
 
 
 @admin.register(Player)

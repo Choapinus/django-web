@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils.html import format_html
 from . import constants
 
 # Create your models here.
@@ -7,14 +6,11 @@ from . import constants
 class Team(models.Model):
 	name = models.CharField(max_length=100)
 	desc = models.TextField()
-	logo = models.ImageField()
+	logo = models.ImageField(upload_to='static/media')
 	code = models.CharField(max_length=3)
 
 	def __str__(self):
 		return self.name
-
-	def image(self):
-		return format_html('<img src="{}" />', self.logo)
 
 class Player(models.Model):
 	name = models.CharField(max_length=200)
