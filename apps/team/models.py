@@ -6,7 +6,7 @@ from . import constants
 class Team(models.Model):
 	name = models.CharField(max_length=100)
 	desc = models.TextField()
-	logo = models.ImageField(upload_to='static/media')
+	logo = models.ImageField(upload_to='img_logo')
 	code = models.CharField(max_length=3)
 
 	def __str__(self):
@@ -21,15 +21,12 @@ class Player(models.Model):
 	email = models.EmailField(max_length=254)
 	height = models.FloatField()
 	weight = models.FloatField()
-	photo = models.ImageField()
+	photo = models.ImageField(upload_to='photos')
 	game_position = models.CharField(max_length=10, choices=constants.GAME_POSITIONS, default=constants.BASE)
 	team = models.ForeignKey('Team', on_delete=models.CASCADE)
 
 	def __str__(self):
 		return self.name
-
-	def image(self):
-		return format_html('<img src="{}" />', self.photo)
 
 class Coach(models.Model):
 	name = models.CharField(max_length=100)

@@ -6,16 +6,11 @@ from apps.team.models import Team, Player, Coach, Game
 
 @admin.register(Team)
 class TeamAdmin(admin.ModelAdmin):
-	list_display = ('name', 'image')
-	search_fields = ('name', )
-	readonly_fields = ['image', ]
+	list_display = ('name', 'thumb', )
 
-	def image(self, obj):
-		print(obj.logo.url)
-		return mark_safe('<img src="{url}" />'.format(
-			url = obj.logo.url
-		)
-	)
+	def thumb(self, obj):
+		return mark_safe(u'<img src="%s" style="width:70px;height:70px;"/>' \
+			% (obj.logo.url))
 
 
 @admin.register(Player)
