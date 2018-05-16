@@ -73,7 +73,7 @@
 														<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 															<!--button class="dropdown-item" type="button">Editar</button>
 															<button class="dropdown-item" type="button">Eliminar</button-->
-															<a class="dropdown-item" href="#"">Editar</a>
+															<a class="dropdown-item" href="{% url 'edit_player' player.id %}"">Editar</a>
 															<a class="dropdown-item" href="{% url 'remove_player' player.id %}">Eliminar</a>
 														</div>
 													</div>

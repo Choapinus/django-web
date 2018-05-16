@@ -1,9 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404
 from .models import Player
 from .forms import PlayerForm
-
-# Create your views here.
+from django.urls import reverse
 
 def index(request):
 	template_name = 'listar.html'
@@ -16,7 +15,7 @@ def index(request):
 def add_player(request):
 	template_name = 'agregar.html'
 	if request.method == 'POST':
-		form = PlayerForm(request.POST, request.FILES)
+		form = PlayerForm(request.POST or None, request.FILES)
 		if form.is_valid():
 			form.save()
 			return redirect('index')
@@ -30,5 +29,20 @@ def remove_player(request, player_id):
 		if player.delete():
 			return redirect('index')
 	except Player.DoesNotExist as ex:
-		raise Http404('gg larry')
-	
+		raise Http404('gg larry') # solo queria mandar el mensaje, por eso no ocupe get or 404 :c
+
+def edit_player(request, player_id):
+	template_name = 'agregar.html'
+	player = get_object_or_404(Player, pk=player_id)
+	if request.method == 'POST':
+		form = PlayerForm(request.POST or None, request.FILES, instance=player)
+		if form.is_valid():
+			form.save()
+			return redirect('index')
+	else:
+		form = PlayerForm(instance=player)
+	return render(request, template_name, {'form':form})
+
+
+
+
