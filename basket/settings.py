@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.team',
     'bootstrap4',
-    'autofixture',
+    # 'autofixture',
 ]
 
 MIDDLEWARE = [
