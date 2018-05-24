@@ -22,11 +22,13 @@ def login_auth(request):
 				login(request, user)
 				return HttpResponseRedirect(reverse('index'))
 			else:
+				print("not active")
 				messages.warning(
 					request,
-					'Username inactive'
+					'User inactive'
 				)
 		else:
+			print(username, pwd, user.is_active)
 			messages.error(request, 'Username or password incorrect')
 	
 	return render(request, template_name, context)
