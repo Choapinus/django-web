@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.team',
+    'apps.login',
     'bootstrap4',
     # 'autofixture',
 ]
@@ -121,6 +122,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
+""" 404 static: solved via https://stackoverflow.com/questions/43458255/django-static-files-404-not-found/43458556 """
 
 MEDIA_URL = '/media/'
 

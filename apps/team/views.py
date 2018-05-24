@@ -3,14 +3,11 @@ from django.http import Http404
 from .models import Player
 from .forms import PlayerForm
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
-def login(request):
-	template_name = 'login.html'
-
-	# return render(request, template_name, context)
-	pass
-
+@login_required(login_url='login')
 def index(request):
+	# TODO: aplicar paginator
 	template_name = 'team/listar.html'
 	context = {}
 	context["players"] = Player.objects.all()
@@ -18,6 +15,7 @@ def index(request):
 
 # instalar django-bootstrap4 y buscar documentacion
 
+@login_required(login_url='login')
 def add_player(request):
 	template_name = 'team/agregar.html'
 	if request.method == 'POST':
@@ -29,6 +27,7 @@ def add_player(request):
 		form = PlayerForm()
 	return render(request, template_name, {'form':form})
 
+@login_required(login_url='login')
 def remove_player(request, player_id):
 	try:
 		player = Player.objects.get(pk=player_id)
@@ -37,6 +36,7 @@ def remove_player(request, player_id):
 	except Player.DoesNotExist as ex:
 		raise Http404('gg larry') # solo queria mandar el mensaje, por eso no ocupe get or 404 :c
 
+@login_required(login_url='login')
 def edit_player(request, player_id):
 	template_name = 'team/agregar.html'
 	player = get_object_or_404(Player, pk=player_id)
