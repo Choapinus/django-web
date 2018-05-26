@@ -49,10 +49,10 @@
 			<div id="buttons">
 				<div align="center">
 					<div class="btn-group" role="group">
-						<button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<button id="playeGroup" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						Jugadores
 						</button>
-						<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+						<div class="dropdown-menu" aria-labelledby="playerGroup">
 							<a class="dropdown-item" href="{% url 'add_player' %}">Agregar</a>
 							<a class="dropdown-item" href="{% url 'list_player' %}">Listar</a>
 						</div>
@@ -63,8 +63,8 @@
 						Equipos
 						</button>
 						<div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
-							<a class="dropdown-item" href="#">Agregar</a>
-							<a class="dropdown-item" href="#">Listar</a>
+							<a class="dropdown-item" href="{% url 'add_team' %}">Agregar</a>
+							<a class="dropdown-item" href="{% url 'list_team' %}">Listar</a>
 						</div>
 					</div>
 
@@ -73,8 +73,8 @@
 						Entrenadores
 						</button>
 						<div class="dropdown-menu" aria-labelledby="btnGroupDrop3">
-							<a class="dropdown-item" href="#">Agregar</a>
-							<a class="dropdown-item" href="#">Listar</a>
+							<a class="dropdown-item" href="{% url 'add_coach' %}">Agregar</a>
+							<a class="dropdown-item" href="{% url 'list_coach' %}">Listar</a>
 						</div>
 					</div>
 				</div>

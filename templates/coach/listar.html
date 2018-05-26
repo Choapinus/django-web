@@ -3,33 +3,35 @@
 {% block content %}
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 style="margin-top:30px;">Listado de Equipos</h1>
+			<h1 style="margin-top:30px;">Listado de Entrenadores</h1>
 			<table class="table table-striped">
 				<thead>
 					<tr>
 						<th scope="col">#</th>
-						<th scope="col">Logo</th>
 						<th scope="col">Nombre</th>
-						<th scope="col">Descripcion</th>
+						<th scope="col">Nickname</th>
+						<th scope="col">Email</th>
+						<th scope="col">Equipo</th>
 						<th scope="col">Acción</th>
 					</tr>
 				</thead>
 				<tbody>
 					
-				{% for team in teams %}
+				{% for coach in coachs %}
 					<tr>
-						<th scope="row">{{ team.id }}</th>
-						<td><img src="{{ team.logo.url }}" class="img-thumbnail" width="100""></td>
-						<td>{{ team.name }}</td>
-						<td>{{ team.desc }}</td>
+						<th scope="row">{{ coach.id }}</th>
+						<td>{{ coach.name }}</td>
+						<td>{{ coach.nickname }}</td>
+						<td>{{ coach.email }}</td>
+						<td>{{ coach.team }}</td>
 						<td>
 							<div class="dropdown">
 								<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									Manager
 								</button>
 								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-									<a class="dropdown-item" href="{% url 'edit_team' team.id %}"">Editar</a>
-									<a class="dropdown-item" href="{% url 'remove_team' team.id %}">Eliminar</a>
+									<a class="dropdown-item" href="{% url 'edit_coach' coach.id %}"">Editar</a>
+									<a class="dropdown-item" href="{% url 'remove_coach' coach.id %}">Eliminar</a>
 								</div>
 							</div>
 						</td>

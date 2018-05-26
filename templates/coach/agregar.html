@@ -3,15 +3,15 @@
 {% block content %}
 <div class="row">
 	<div class="col-lg-12">
-		<h1>Agregar Equipo</h1>
+		<h1>Agregar Entrenador</h1>
 		{% load bootstrap4 %}
-		<form method="POST" enctype="multipart/form-data">
+		<form method="POST">
 			{% csrf_token %}
 			{% bootstrap_form form %}
 			<div align="center">
 				{% buttons %}
 					<button type="submit" class="btn btn-primary col-md-4">Guardar</button>
-					<a href="{% url 'list_team' %}">
+					<a href="{% url 'list_coach' %}">
 						<input type="button" value="Cancelar" class="btn btn-danger col-md-4">
 					</a>
 				{% endbuttons %}
