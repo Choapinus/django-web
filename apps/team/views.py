@@ -5,10 +5,12 @@ from .forms import PlayerForm
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
+
 @login_required(login_url='login')
-def index(request):
+def list_player(request):
 	# TODO: aplicar paginator
 	template_name = 'team/listar.html'
+	# template_name = 'base.html'
 	context = {}
 	context["players"] = Player.objects.all()
 	return render(request, template_name, context)
@@ -22,7 +24,7 @@ def add_player(request):
 		form = PlayerForm(request.POST or None, request.FILES)
 		if form.is_valid():
 			form.save()
-			return redirect('index')
+			return redirect('list_player')
 	else:
 		form = PlayerForm()
 	return render(request, template_name, {'form':form})
@@ -32,7 +34,7 @@ def remove_player(request, player_id):
 	try:
 		player = Player.objects.get(pk=player_id)
 		if player.delete():
-			return redirect('index')
+			return redirect('list_player')
 	except Player.DoesNotExist as ex:
 		raise Http404('gg larry') # solo queria mandar el mensaje, por eso no ocupe get or 404 :c
 
@@ -44,7 +46,7 @@ def edit_player(request, player_id):
 		form = PlayerForm(request.POST or None, request.FILES, instance=player)
 		if form.is_valid():
 			form.save()
-			return redirect('index')
+			return redirect('list_player')
 	else:
 		form = PlayerForm(instance=player)
 	return render(request, template_name, {'form':form})
