@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		{% load staticfiles %}
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+		<title>DW2018 - UNAB</title>
+		{% block staticfiles %}
+		{% endblock %}
+
+	</head>
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<div class="container">
+					
+				<a class="navbar-brand" href="{% url 'index' %}">Basket App</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav mr-auto">
+							<a class="nav-link" href="{% url 'logout' %}">Logout</a>
+						<li class="nav-item active">
+						</li>
+					</ul>
+					<form class="form-inline my-2 my-lg-0">
+						<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+					</form>
+				</div>
+
+			</div>
+		</nav>
+		<div class="container" style="padding-top:100px">
+			{% block content %}	
+			<div align="center" id="conga">
+				<iframe width="420" height="315" 
+				src="https://www.youtube.com/embed/ODKTITUPusM?autoplay=1">
+				</iframe>
+			</div>
+			{% endblock %}
+			{% block buttons %}
+			<div id="buttons">
+				<div align="center">
+					<div class="btn-group" role="group">
+						<button id="playeGroup" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Jugadores
+						</button>
+						<div class="dropdown-menu" aria-labelledby="playerGroup">
+							<a class="dropdown-item" href="{% url 'add_player' %}">Agregar</a>
+							<a class="dropdown-item" href="{% url 'list_player' %}">Listar</a>
+						</div>
+					</div>
+
+					<div class="btn-group" role="group">
+						<button id="btnGroupDrop2" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Equipos
+						</button>
+						<div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+							<a class="dropdown-item" href="{% url 'add_team' %}">Agregar</a>
+							<a class="dropdown-item" href="{% url 'list_team' %}">Listar</a>
+						</div>
+					</div>
+
+					<div class="btn-group" role="group">
+						<button id="btnGroupDrop3" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Entrenadores
+						</button>
+						<div class="dropdown-menu" aria-labelledby="btnGroupDrop3">
+							<a class="dropdown-item" href="{% url 'add_coach' %}">Agregar</a>
+							<a class="dropdown-item" href="{% url 'list_coach' %}">Listar</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endblock %}
+		</div>
+		
+		<!-- Optional JavaScript -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+	</body>
+</html>

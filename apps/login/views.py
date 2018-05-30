@@ -34,7 +34,6 @@ def login_auth(request):
 					'User inactive'
 				)
 		else:
-			print(username, pwd, user.is_active)
 			messages.error(request, 'Username or password incorrect')
 	
 	return render(request, template_name, context)
@@ -42,3 +41,8 @@ def login_auth(request):
 def logout_auth(request):
 	logout(request)
 	return HttpResponseRedirect(reverse('login'))
+
+def index(request):
+	template_name = 'base.html'
+	context = {}
+	return render(request, template_name, context)
