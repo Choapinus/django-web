@@ -3,7 +3,9 @@ from django.shortcuts import render
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
+from django.views.decorators.csrf import csrf_exempt
 
+@csrf_exempt
 def login_auth(request):
 	template_name = 'login.html'
 	context = {}
@@ -19,8 +21,12 @@ def login_auth(request):
 
 		if user is not None:
 			if user.is_active:
-				login(request, user)
-				return HttpResponseRedirect(reverse('index'))
+				if user.has_perm('team.roster.Can_add_roster'):
+					login(request, user)
+					return HttpResponseRedirect(reverse('roster_coach'))
+				else:
+					login(request, user)
+					return HttpResponseRedirect(reverse('index'))
 			else:
 				print("not active")
 				messages.warning(

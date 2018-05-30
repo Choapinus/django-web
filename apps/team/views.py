@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404
-from .models import Player
-from .forms import PlayerForm
+from .models import Player, Roster
+from .forms import PlayerForm, RosterForm
 from django.urls import reverse
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
+
 
 @login_required(login_url='login')
 def index(request):
@@ -49,6 +50,29 @@ def edit_player(request, player_id):
 		form = PlayerForm(instance=player)
 	return render(request, template_name, {'form':form})
 
+def roster_view(request):
+	template_name = 'team/roster_view.html'
+	data = {}
+	data['rosters'] = Roster.objects.all()
+	return render(request,template_name, data)
 
+@login_required
+def roster_coach(request):
+	template_name = 'team/roster_coach.html'
+	data = {}
+	data['rosters'] = Roster.objects.all()
+	return render(request,template_name, data)
+
+@login_required
+def add_roster(request, roster_id):
+	template_name = "team/roster_add.html"
+	if request.method == 'POST':
+		form = RosterForm(request.POST or None, request.FILES)
+		if form.is_valid():
+			form.save()
+			return redirect('roster_view')
+	else:
+		form = RosterForm()
+	return render(request, template_name, {'form':form})
 
 

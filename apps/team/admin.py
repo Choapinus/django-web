@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import mark_safe
-from apps.team.models import Team, Player, Coach, Game
+from apps.team.models import Team, Player, Coach, Game,Roster
 
 # Register your models here.
 
@@ -27,4 +27,8 @@ class CoachAdmin(admin.ModelAdmin):
 
 @admin.register(Game)
 class GameAdmin(admin.ModelAdmin):
+	pass
+
+@admin.register(Roster)
+class RosterAdmin(admin.ModelAdmin):
 	pass

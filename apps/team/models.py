@@ -49,3 +49,11 @@ class Game(models.Model):
 
 	def __str__(self):
 		return self.name
+
+class Roster(models.Model):
+	game = models.ForeignKey('Game', on_delete=models.CASCADE)
+	player = models.ManyToManyField('Player')
+	coach = models.ForeignKey('Coach', on_delete=models.CASCADE)
+
+	def __str__(self):
+		return self.game.name
