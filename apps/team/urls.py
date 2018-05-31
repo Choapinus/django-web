@@ -8,11 +8,11 @@ urlpatterns = [
 	path('add', views.add_player, name='add_player'),
 	path('delete/<int:player_id>', views.remove_player, name="remove_player"),
 	path('edit/<int:player_id>', views.edit_player, name="edit_player"),
-<<<<<<< HEAD
+
+	# roster
 	path('roster', views.roster_view, name="roster"),
 	path('roster_coach',views.roster_coach, name="roster_coach"),
 	path('add_roster/<int:roster_id>',views.add_roster, name="add_roster"),
-=======
 
 	# team
 	path('list/team', views.list_team, name='list_team'),
@@ -25,5 +25,4 @@ urlpatterns = [
 	path('add/coach', views.add_coach, name='add_coach'),
 	path('coach/delete/<int:coach_id>', views.remove_coach, name="remove_coach"),
 	path('coach/edit/<int:coach_id>', views.edit_coach, name="edit_coach"),
->>>>>>> 7426e5f8a7b2452081c4889790e679855e88424c
 ]

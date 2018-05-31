@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404
 from .models import Player, Roster
@@ -6,16 +5,7 @@ from .forms import PlayerForm, RosterForm
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required, permission_required
 
-=======
-from django.urls import reverse
-from django.http import Http404
-from .models import Player, Team, Coach
-from .forms import PlayerForm, TeamForm, CoachForm
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect, get_object_or_404
-
 # begin player
->>>>>>> 7426e5f8a7b2452081c4889790e679855e88424c
 
 @login_required(login_url='login')
 def list_player(request):
@@ -62,7 +52,10 @@ def edit_player(request, player_id):
 		form = PlayerForm(instance=player)
 	return render(request, template_name, {'form':form})
 
-<<<<<<< HEAD
+# end player
+
+# begin roster
+
 def roster_view(request):
 	template_name = 'team/roster_view.html'
 	data = {}
@@ -87,9 +80,8 @@ def add_roster(request, roster_id):
 	else:
 		form = RosterForm()
 	return render(request, template_name, {'form':form})
-=======
-# end player
 
+# endroster
 
 # begin team
 @login_required(login_url='login')
@@ -119,7 +111,6 @@ def remove_team(request, team_id):
 			return redirect('list_team')
 	except Team.DoesNotExist as ex:
 		raise Http404('gg larry')
->>>>>>> 7426e5f8a7b2452081c4889790e679855e88424c
 
 @login_required(login_url='login')
 def edit_team(request, team_id):
