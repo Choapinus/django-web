@@ -45,9 +45,7 @@
 									<thead>
 										<tr>
 											<th scope="col">Fecha</th>
-											<th scope="col">Nombre</th>
-											<th scope="col">Edad</th>
-											<th scope="col">Posición</th>
+											<th scope="col">Juego</th>
 											<th scope="col">Equipo</th>
 										</tr>
 									</thead>
@@ -55,19 +53,53 @@
 										
 										{% for roster in rosters %}
 											<tr>
-												<th scope="row">{{roster.game.date}}</th>
-												<td>{{ roster.coach.name }}</td>
-												<td>{{ roster.coach.nickname }}</td>
-												<td>{{ roster.coach.age }}</td>
+												<td><a href="{% url 'list_roster' roster.id %}">{{roster.game.date}}</a></td>-
+												<td>{{ roster.game.name }}</td>
 												<td>{{ roster.coach.team }}</td>
+												<td>
+													<div class="dropdown">
+														<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Manager </button>
+														<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+															<a class="dropdown-item" href="{% url 'add_roster_player' roster.id %}"">Agregar Jugador</a>
+														</div>
+													</div>
+												</td>
+																			
 										{% empty %}
 											<tr>No hay elementos que mostrar :(</tr>
 										{% endfor %}
+											</tr>
 									</tbody>
 								</table>
-						</div>
+								<div>
+									<button class="btn" type="button" href="{% url 'add_roster' %}"> Agregar Nomina</button>
+								</div> <br>
 
+						</div>
 						<nav aria-label="Page navigation example">
+							<div class="pagination">
+								{%  if post.has_previous %}
+									<li class="page-item disabled">
+										<a class="page-link" href="?page=1"> Previous </a>
+									</li>
+								{% endif %}
+								{% for num in post.paginator.page_range %}
+									{% if post.number == num %}
+										<strong><li class="page-item"><a class="page-link"> {{ num }}</a></li></strong>
+									{% else %}
+										{{num}}
+									{% endif %}
+								{% endfor %}
+
+								{% if post.has_next %}
+									<li class="page-item">
+										<a class="page-link" href="?page={{post.next_page_number"> Next</a>
+									</li>
+								{% endif %}
+							</div>
+						</nav>
+
+						<!--<nav aria-label="Page navigation example">
 							<ul class="pagination justify-content-end">
 								<li class="page-item disabled">
 									<a class="page-link" href="#" tabindex="-1">Previous</a>
@@ -79,8 +111,7 @@
 									<a class="page-link" href="#">Next</a>
 								</li>
 							</ul>
-						</nav>
-						
+						</nav>	-->				
 				</div>
 		</div>
 		

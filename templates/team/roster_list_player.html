@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 style="margin-top:30px;">Listado de Jugadores</h1>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Foto</th>
+						<th scope="col">Nombre</th>
+						<th scope="col">Apellido</th>
+						<th scope="col">Edad</th>
+						<th scope="col">Posición</th>
+						<th scope="col">Equipo</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+				{% for player in players.player.all %}
+					<tr>
+						<th scope="row">{{player.id}}</th>
+						<!--td><img src="{{MEDIA_ROOT}}{{player.photo.url}}" alt="" class="img-thumbnail"></td-->
+						<td><img src="{{ player.photo.url }}" class="img-thumbnail" width="100""></td>
+						<td>{{ player.name }}</td>
+						<td>{{ player.nickname }}</td>
+						<td>{{ player.age }}</td>
+						<td>{{ player.game_position }}</td>
+						<td>{{ player.team }}</td>
+					</tr>
+				{% empty %}
+					<tr>No hay elementos que mostrar :(</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+
+			<div>
+				<button class="btn" type="button" href="{% url 'roster_coach' %}"> Volver </button>
+			</div> <br>
+		</div>
+
+		<nav aria-label="Page navigation example">
+			<ul class="pagination justify-content-end">
+				<li class="page-item disabled">
+					<a class="page-link" href="#" tabindex="-1">Previous</a>
+				</li>
+				<li class="page-item"><a class="page-link" href="#">1</a></li>
+				<li class="page-item"><a class="page-link" href="#">2</a></li>
+				<li class="page-item"><a class="page-link" href="#">3</a></li>
+				<li class="page-item">
+					<a class="page-link" href="#">Next</a>
+				</li>
+			</ul>
+		</nav>
+			
+	</div>
+{% endblock %}

@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404
 from .models import Player, Roster
-from .forms import PlayerForm, RosterForm
+from .forms import PlayerForm, RosterForm, Roster_playerForm
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required, permission_required
-
+from django.core.paginator import Paginator
 # begin player
 
 @login_required(login_url='login')
@@ -67,10 +67,24 @@ def roster_coach(request):
 	template_name = 'team/roster_coach.html'
 	data = {}
 	data['rosters'] = Roster.objects.all()
+	paginator = Paginator(data['rosters'], 10)
+	page = request.GET.get('page')
+	data['post'] = paginator.get_page(page)
 	return render(request,template_name, data)
 
 @login_required
-def add_roster(request, roster_id):
+def add_roster_player(request, roster_id):
+	template_name = "team/roster_add_player.html"
+	if request.method == 'POST':
+		form = Roster_playerForm(request.POST or None, request.FILES)
+		if form.is_valid():
+			form.save()
+			return redirect('roster_view')
+	else:
+		form = Roster_playerForm()
+	return render(request, template_name, {'form':form})
+@login_required
+def add_roster(request):
 	template_name = "team/roster_add.html"
 	if request.method == 'POST':
 		form = RosterForm(request.POST or None, request.FILES)
@@ -80,6 +94,16 @@ def add_roster(request, roster_id):
 	else:
 		form = RosterForm()
 	return render(request, template_name, {'form':form})
+
+
+def list_roster(request, roster_id):
+	template_name = "team/roster_list_player.html"
+	context = {}
+	rosters = Roster.objects.get(id=roster_id)
+	context['players'] = rosters
+
+	return render(request,template_name,context)
+	
 
 # endroster
 

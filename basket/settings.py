@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'apps.team',
     'apps.login',
     'bootstrap4',
-    # 'autofixture',
+    'autofixture',
 ]
 
 MIDDLEWARE = [
