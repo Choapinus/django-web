@@ -1,124 +1,81 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		{% load staticfiles %}
-		<!-- Required meta tags -->
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% extends 'base.html' %}
 
-		<!-- Bootstrap CSS -->
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+{% block content %}
 
-		<title>DW2018 - UNAB</title>
-
-	</head>
-	<body>
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<div class="container">
-					
-			<a class="navbar-brand" href="/">Basket App</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav mr-auto">
-					<!-- <li class="nav-item active">
-						<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-					</li> -->
-				</ul>
-				<form class="form-inline my-2 my-lg-0">
-					{% csrf_token %}
-					<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-				</form>
-			</div>
-
-			</div>
-		</nav>
-		<div class="container">
+<div class="row">
+	<div class="col-lg-12">
+		<h1>Nomina de Jugadores</h1>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">Fecha</th>
+					<th scope="col">Juego</th>
+					<th scope="col">Equipo</th>
+				</tr>
+			</thead>
+			<tbody>
 				
-				<div class="row">
-						<div class="col-lg-12">
-								<h1 style="margin-top:30px;">Nomina de Jugadores</h1>
-								<table class="table table-striped">
-									<thead>
-										<tr>
-											<th scope="col">Fecha</th>
-											<th scope="col">Juego</th>
-											<th scope="col">Equipo</th>
-										</tr>
-									</thead>
-									<tbody>
-										
-										{% for roster in rosters %}
-											<tr>
-												<td><a href="{% url 'list_roster' roster.id %}">{{roster.game.date}}</a></td>-
-												<td>{{ roster.game.name }}</td>
-												<td>{{ roster.coach.team }}</td>
-												<td>
-													<div class="dropdown">
-														<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Manager </button>
-														<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-															<a class="dropdown-item" href="{% url 'add_roster_player' roster.id %}"">Agregar Jugador</a>
-														</div>
-													</div>
-												</td>
-																			
-										{% empty %}
-											<tr>No hay elementos que mostrar :(</tr>
-										{% endfor %}
-											</tr>
-									</tbody>
-								</table>
-								<div>
-									<button class="btn" type="button" href="{% url 'add_roster' %}"> Agregar Nomina</button>
-								</div> <br>
-
-						</div>
-						<nav aria-label="Page navigation example">
-							<div class="pagination">
-								{%  if post.has_previous %}
-									<li class="page-item disabled">
-										<a class="page-link" href="?page=1"> Previous </a>
-									</li>
-								{% endif %}
-								{% for num in post.paginator.page_range %}
-									{% if post.number == num %}
-										<strong><li class="page-item"><a class="page-link"> {{ num }}</a></li></strong>
-									{% else %}
-										{{num}}
-									{% endif %}
-								{% endfor %}
-
-								{% if post.has_next %}
-									<li class="page-item">
-										<a class="page-link" href="?page={{post.next_page_number"> Next</a>
-									</li>
-								{% endif %}
+				{% for roster in rosters %}
+					<tr>
+						<td><a href="{% url 'list_roster' roster.id %}">{{roster.game.date}}</a></td>-
+						<td>{{ roster.game.name }}</td>
+						<td>{{ roster.coach.team }}</td>
+						<td>
+							<div class="dropdown">
+								<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Manager </button>
+								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+									<a class="dropdown-item" href="{% url 'add_roster_player' roster.id %}"">Agregar Jugador</a>
+								</div>
 							</div>
-						</nav>
+						</td>
+													
+				{% empty %}
+					<tr>No hay elementos que mostrar :(</tr>
+				{% endfor %}
+					</tr>
+			</tbody>
+		</table>
+		<div>
+			<a class="btn btn-primary" type="button" href="{% url 'add_roster' %}"> Agregar Nomina</a>
+		</div> <br>
 
-						<!--<nav aria-label="Page navigation example">
-							<ul class="pagination justify-content-end">
-								<li class="page-item disabled">
-									<a class="page-link" href="#" tabindex="-1">Previous</a>
-								</li>
-								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item">
-									<a class="page-link" href="#">Next</a>
-								</li>
-							</ul>
-						</nav>	-->				
-				</div>
+	</div>
+	<nav aria-label="Page navigation example">
+		<div class="pagination">
+			{%  if post.has_previous %}
+				<li class="page-item disabled">
+					<a class="page-link" href="?page=1"> Previous </a>
+				</li>
+			{% endif %}
+			{% for num in post.paginator.page_range %}
+				{% if post.number == num %}
+					<strong><li class="page-item"><a class="page-link"> {{ num }}</a></li></strong>
+				{% else %}
+					{{num}}
+				{% endif %}
+			{% endfor %}
+
+			{% if post.has_next %}
+				<li class="page-item">
+					<a class="page-link" href="?page={{post.next_page_number"> Next</a>
+				</li>
+			{% endif %}
 		</div>
-		
-		<!-- Optional JavaScript -->
-		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-	</body>
-</html>
+	</nav>
+
+	<!--<nav aria-label="Page navigation example">
+		<ul class="pagination justify-content-end">
+			<li class="page-item disabled">
+				<a class="page-link" href="#" tabindex="-1">Previous</a>
+			</li>
+			<li class="page-item"><a class="page-link" href="#">1</a></li>
+			<li class="page-item"><a class="page-link" href="#">2</a></li>
+			<li class="page-item"><a class="page-link" href="#">3</a></li>
+			<li class="page-item">
+				<a class="page-link" href="#">Next</a>
+			</li>
+		</ul>
+	</nav>	-->				
+</div>
+
+{% endblock %}

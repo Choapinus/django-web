@@ -21,7 +21,7 @@ def login_auth(request):
 
 		if user is not None:
 			if user.is_active:
-				if user.has_perm('team.roster.Can_add_roster'):
+				if user.has_perm(['team.roster.Can_add_roster', ]):
 					login(request, user)
 					return HttpResponseRedirect(reverse('roster_coach'))
 				else:

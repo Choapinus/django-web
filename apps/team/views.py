@@ -62,7 +62,7 @@ def roster_view(request):
 	data['rosters'] = Roster.objects.all()
 	return render(request,template_name, data)
 
-@login_required
+@login_required(login_url='login')
 def roster_coach(request):
 	template_name = 'team/roster_coach.html'
 	data = {}
@@ -72,7 +72,7 @@ def roster_coach(request):
 	data['post'] = paginator.get_page(page)
 	return render(request,template_name, data)
 
-@login_required
+@login_required(login_url='login')
 def add_roster_player(request, roster_id):
 	template_name = "team/roster_add_player.html"
 	if request.method == 'POST':
@@ -83,7 +83,8 @@ def add_roster_player(request, roster_id):
 	else:
 		form = Roster_playerForm()
 	return render(request, template_name, {'form':form})
-@login_required
+
+@login_required(login_url='login')
 def add_roster(request):
 	template_name = "team/roster_add.html"
 	if request.method == 'POST':

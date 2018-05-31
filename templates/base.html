@@ -38,7 +38,7 @@
 			</div>
 		</nav>
 		<div class="container" style="padding-top:100px">
-			{% block content %}	
+			{% block content %}
 			<div align="center" id="conga">
 				<iframe width="420" height="315" 
 				src="https://www.youtube.com/embed/ODKTITUPusM?autoplay=1">
@@ -46,39 +46,41 @@
 			</div>
 			{% endblock %}
 			{% block buttons %}
-			<!--<div id="buttons">
-				<div align="center">
-					<div class="btn-group" role="group">
-						<button id="playeGroup" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Jugadores
-						</button>
-						<div class="dropdown-menu" aria-labelledby="playerGroup">
-							<a class="dropdown-item" href="{% url 'add_player' %}">Agregar</a>
-							<a class="dropdown-item" href="{% url 'list_player' %}">Listar</a>
+			{% if request.user.is_staff %}
+				<div id="buttons">
+					<div align="center">
+						<div class="btn-group" role="group">
+							<button id="playeGroup" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Jugadores
+							</button>
+							<div class="dropdown-menu" aria-labelledby="playerGroup">
+								<a class="dropdown-item" href="{% url 'add_player' %}">Agregar</a>
+								<a class="dropdown-item" href="{% url 'list_player' %}">Listar</a>
+							</div>
 						</div>
-					</div>
 
-					<div class="btn-group" role="group">
-						<button id="btnGroupDrop2" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Equipos
-						</button>
-						<div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
-							<a class="dropdown-item" href="{% url 'add_team' %}">Agregar</a>
-							<a class="dropdown-item" href="{% url 'list_team' %}">Listar</a>
+						<div class="btn-group" role="group">
+							<button id="btnGroupDrop2" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Equipos
+							</button>
+							<div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+								<a class="dropdown-item" href="{% url 'add_team' %}">Agregar</a>
+								<a class="dropdown-item" href="{% url 'list_team' %}">Listar</a>
+							</div>
 						</div>
-					</div>
 
-					<div class="btn-group" role="group">
-						<button id="btnGroupDrop3" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Entrenadores
-						</button>
-						<div class="dropdown-menu" aria-labelledby="btnGroupDrop3">
-							<a class="dropdown-item" href="{% url 'add_coach' %}">Agregar</a>
-							<a class="dropdown-item" href="{% url 'list_coach' %}">Listar</a>
+						<div class="btn-group" role="group">
+							<button id="btnGroupDrop3" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Entrenadores
+							</button>
+							<div class="dropdown-menu" aria-labelledby="btnGroupDrop3">
+								<a class="dropdown-item" href="{% url 'add_coach' %}">Agregar</a>
+								<a class="dropdown-item" href="{% url 'list_coach' %}">Listar</a>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>-->
+			{% endif %}
 			{% endblock %}
 		</div>
 		

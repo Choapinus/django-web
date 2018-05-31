@@ -1,6 +1,6 @@
 from . import constants
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
@@ -39,6 +39,8 @@ class Coach(models.Model):
 	team = models.OneToOneField('Team', on_delete=models.CASCADE)
 	# El equipo posee un único entrenador y cada entrenador solo puede entrenar a un único equipo.
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
+	perms = models.ManyToManyField(Permission)
+
 
 	def __str__(self):
 		return self.name
