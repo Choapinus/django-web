@@ -21,7 +21,7 @@ def login_auth(request):
 
 		if user is not None:
 			if user.is_active:
-				if user.has_perm('team.add_roster'):
+				if user.has_perms({'team.add_roster', 'team.delete_roster', 'team.change_roster'}):
 					login(request, user)
 					return HttpResponseRedirect(reverse('roster_coach'))
 				else:
@@ -45,4 +45,9 @@ def logout_auth(request):
 def index(request):
 	template_name = 'base.html'
 	context = {}
-	return render(request, template_name, context)
+	
+	if request.user.has_perms({'team.add_roster', 'team.delete_roster', 'team.change_roster'}):
+		return HttpResponseRedirect(reverse('roster_coach'))
+	else:
+		return render(request, template_name, context)
+	

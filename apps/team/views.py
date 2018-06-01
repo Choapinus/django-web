@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404
 from .models import Player, Roster, Coach, Team
-from .forms import PlayerForm, RosterForm, Roster_playerForm, CoachForm
+from .forms import PlayerForm, RosterForm, Roster_playerForm, CoachForm, TeamForm
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator
@@ -117,7 +117,11 @@ def list_roster(request, roster_id):
 def list_team(request):
 	template_name = 'team/listar.html'
 	context = {}
-	context["teams"] = Team.objects.all()
+	team_list = Team.objects.all()
+	paginator = Paginator(team_list, 5)
+	page = request.GET.get('page')
+	teams = paginator.get_page(page)
+	context["teams"] = teams
 	return render(request, template_name, context)
 
 @login_required(login_url='login')
@@ -163,7 +167,11 @@ def edit_team(request, team_id):
 def list_coach(request):
 	template_name = 'coach/listar.html'
 	context = {}
-	context["coachs"] = Coach.objects.all()
+	coach_list = Coach.objects.all()
+	paginator = Paginator(coach_list, 5)
+	page = request.GET.get('page')
+	coachs = paginator.get_page(page)
+	context["coachs"] = coachs
 	return render(request, template_name, context)
 
 @login_required(login_url='login')
