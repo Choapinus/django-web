@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404
-from .models import Player, Roster
-from .forms import PlayerForm, RosterForm, Roster_playerForm
+from .models import Player, Roster, Coach, Team
+from .forms import PlayerForm, RosterForm, Roster_playerForm, CoachForm
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator
@@ -13,7 +13,11 @@ def list_player(request):
 	template_name = 'player/listar.html'
 	# template_name = 'base.html'
 	context = {}
-	context["players"] = Player.objects.all()
+	player_list = Player.objects.all()
+	paginator = Paginator(player_list, 5)
+	page = request.GET.get('page')
+	players = paginator.get_page(page)
+	context["players"] = players
 	return render(request, template_name, context)
 
 # instalar django-bootstrap4 y buscar documentacion
@@ -67,7 +71,7 @@ def roster_coach(request):
 	template_name = 'team/roster_coach.html'
 	data = {}
 	data['rosters'] = Roster.objects.all()
-	paginator = Paginator(data['rosters'], 10)
+	paginator = Paginator(data['rosters'], 5)
 	page = request.GET.get('page')
 	data['post'] = paginator.get_page(page)
 	return render(request,template_name, data)
@@ -79,7 +83,7 @@ def add_roster_player(request, roster_id):
 		form = Roster_playerForm(request.POST or None, request.FILES)
 		if form.is_valid():
 			form.save()
-			return redirect('roster_view')
+			return redirect('roster')
 	else:
 		form = Roster_playerForm()
 	return render(request, template_name, {'form':form})
@@ -91,7 +95,7 @@ def add_roster(request):
 		form = RosterForm(request.POST or None, request.FILES)
 		if form.is_valid():
 			form.save()
-			return redirect('roster_view')
+			return redirect('roster')
 	else:
 		form = RosterForm()
 	return render(request, template_name, {'form':form})

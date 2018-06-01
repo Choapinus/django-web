@@ -21,7 +21,7 @@
 					
 				{% for player in players %}
 					<tr>
-						<th scope="row">{{player.id}}</th>
+						<th scope="row">{{ player.id }}</th>
 						<!--td><img src="{{MEDIA_ROOT}}{{player.photo.url}}" alt="" class="img-thumbnail"></td-->
 						<td><img src="{{ player.photo.url }}" class="img-thumbnail" width="100""></td>
 						<td>{{ player.name }}</td>
@@ -35,8 +35,6 @@
 									Manager
 								</button>
 								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-									<!--button class="dropdown-item" type="button">Editar</button>
-									<button class="dropdown-item" type="button">Eliminar</button-->
 									<a class="dropdown-item" href="{% url 'edit_player' player.id %}"">Editar</a>
 									<a class="dropdown-item" href="{% url 'remove_player' player.id %}">Eliminar</a>
 								</div>
@@ -52,15 +50,41 @@
 
 		<nav aria-label="Page navigation example">
 			<ul class="pagination justify-content-end">
-				<li class="page-item disabled">
-					<a class="page-link" href="#" tabindex="-1">Previous</a>
-				</li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
+				{% if players.has_previous %}
+					<li class="page-item">
+						<a class="page-link" href="?page={{ players.previous_page_number }}">Previous</a>
+					</li>
+				{% else %}
+					<li class="page-item disabled">
+						<a class="page-link" href="#">Previous</a>
+					</li>
+				{% endif %}
+
+				{% for page in players.paginator.page_range %}
+					{% if page == players.number %}
+						<li class="page-item active"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+					{% else %}
+						<li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+					{% endif %}
+				{% endfor %}
+
+				<!-- <li class="page-item"><a class="page-link" href="#">1</a></li>
 				<li class="page-item"><a class="page-link" href="#">2</a></li>
 				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item">
-					<a class="page-link" href="#">Next</a>
-				</li>
+				
+				<span class="current">
+            Page {{ players.number }} of {{ players.paginator.num_pages }}.
+        		</span> -->
+
+				{% if players.has_next %}
+					<li class="page-item">
+						<a class="page-link" href="?page={{ players.next_page_number }}">Next</a>
+					</li>
+				{% else %}
+					<li class="page-item disabled">
+						<a class="page-link" href="#">Next</a>
+					</li>
+				{% endif %}
 			</ul>
 		</nav>
 			

@@ -39,8 +39,6 @@ class Coach(models.Model):
 	team = models.OneToOneField('Team', on_delete=models.CASCADE)
 	# El equipo posee un único entrenador y cada entrenador solo puede entrenar a un único equipo.
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
-	perms = models.ManyToManyField(Permission)
-
 
 	def __str__(self):
 		return self.name
