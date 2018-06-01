@@ -11,7 +11,6 @@ class Roster_playerForm(forms.ModelForm):
 	class Meta:
 		model = Roster
 		fields = ('player',)
-		exclude = ['id']
 
 class RosterForm(forms.ModelForm):
 	class Meta:

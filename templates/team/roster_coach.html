@@ -15,7 +15,7 @@
 			</thead>
 			<tbody>
 				
-				{% for roster in rosters %}
+				{% for roster in post %}
 					<tr>
 						<td><a href="{% url 'list_roster' roster.id %}">{{ roster.game.date }}</a></td>-
 						<td>{{ roster.game.name }}</td>

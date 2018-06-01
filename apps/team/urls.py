@@ -15,6 +15,7 @@ urlpatterns = [
 	path('add_roster_player/<int:roster_id>', views.add_roster_player, name="add_roster_player"),
 	path('list_roster/<int:roster_id>', views.list_roster, name="list_roster"),
 	path('add_roster', views.add_roster, name="add_roster"),
+	path('list_roster_coach/<int:roster_id>',views.list_roster_coach,name="list_roster_coach"),
 
 	# team
 	path('list/team', views.list_team, name='list_team'),

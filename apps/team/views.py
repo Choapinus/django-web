@@ -62,19 +62,24 @@ def edit_player(request, player_id):
 
 def roster_view(request):
 	template_name = 'team/roster_view.html'
-	data = {}
-	data['rosters'] = Roster.objects.all()
-	return render(request,template_name, data)
+	context = {}
+	rosters_list = Roster.objects.all()
+	paginator = Paginator(rosters_list, 5)
+	page = request.GET.get('page')
+	post = paginator.get_page(page)
+	context["post"] = post
+	return render(request,template_name, context)
 
 @login_required(login_url='login')
 def roster_coach(request):
 	template_name = 'team/roster_coach.html'
-	data = {}
-	data['rosters'] = Roster.objects.all()
-	paginator = Paginator(data['rosters'], 5)
+	context = {}
+	rosters_list = Roster.objects.all()
+	paginator = Paginator(rosters_list, 5)
 	page = request.GET.get('page')
-	data['post'] = paginator.get_page(page)
-	return render(request,template_name, data)
+	post = paginator.get_page(page)
+	context["post"] = post
+	return render(request,template_name, context)
 
 @login_required(login_url='login')
 def add_roster_player(request, roster_id):
@@ -95,7 +100,7 @@ def add_roster(request):
 		form = RosterForm(request.POST or None, request.FILES)
 		if form.is_valid():
 			form.save()
-			return redirect('roster')
+			return redirect('roster_coach')
 	else:
 		form = RosterForm()
 	return render(request, template_name, {'form':form})
@@ -105,7 +110,23 @@ def list_roster(request, roster_id):
 	template_name = "team/roster_list_player.html"
 	context = {}
 	rosters = Roster.objects.get(id=roster_id)
-	context['players'] = rosters
+	player_list = rosters.player.all()
+	paginator = Paginator(player_list,5)
+	page = request.GET.get('page')
+	post = paginator.get_page(page)
+	context["post"] = post
+
+	return render(request,template_name,context)
+
+def list_roster_coach(request, roster_id):
+	template_name = "team/roster_list_player_coach.html"
+	context = {}
+	rosters = Roster.objects.get(id=roster_id)
+	player_list = rosters.player.all()
+	paginator = Paginator(player_list,5)
+	page = request.GET.get('page')
+	post = paginator.get_page(page)
+	context["post"] = post
 
 	return render(request,template_name,context)
 	
